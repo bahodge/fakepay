@@ -6,7 +6,7 @@ class ShippingAddress < ApplicationRecord
   after_validation :set_unset_name
 
   def set_defaults
-    self.zipcode ||= ''
+    self.zip_code ||= ''
     self.address ||= ''
     self.name ||= ''
   end
@@ -18,7 +18,7 @@ class ShippingAddress < ApplicationRecord
   end
 
   def to_payload
-    {zipcode: self.zipcode, name: self.name, address: self.address}
+    {zip_code: self.zip_code, name: self.name, address: self.address}
   end
 
 

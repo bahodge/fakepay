@@ -2,14 +2,18 @@ class FakepayApi::Connection
 
   FAKEPAY_API_KEY = ENV['FAKEPAY_API_KEY']
 
-  attr_accessor :response
+  attr_accessor :billing_token, :response
 
-  def initialize(response: nil)
+  def initialize(billing_token: nil, response: nil)
     @response = response
+    @billing_token = billing_token
+  end
+
+  def self.from_customer(customer)
+    FakepayApi::Connection.new(billing_token: customer.billing_token)
   end
 
   def build_headers
-    # p headers: {"Authorization" => "Token token=\"111\""}
     {
         "Authorization" => "Token #{FAKEPAY_API_KEY}",
         "Content-Type" => "application/json",
@@ -28,11 +32,5 @@ class FakepayApi::Connection
     self.response = request.make_request!
     response
   end
-
-  def parse_response
-    return unless self.response
-
-  end
-
 
 end
