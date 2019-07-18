@@ -11,6 +11,7 @@ class FakepayApi::Connection
   end
 
   def make_request!
+
     # curl -X POST \
     # -H "Authorization: Token token=e68e9b4b6e43902a56c3512a80f2ae" \
     # https://www.fakepay.io/purchase

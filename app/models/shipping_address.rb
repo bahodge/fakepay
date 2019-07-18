@@ -1,9 +1,8 @@
 class ShippingAddress < ApplicationRecord
 
-  belongs_to :customer, class_name: 'Customer'
+  belongs_to :customer
 
   after_initialize :set_defaults, unless: :persisted?
-  
   after_validation :set_unset_name
 
   def set_defaults
@@ -13,9 +12,14 @@ class ShippingAddress < ApplicationRecord
   end
 
   def set_unset_name
-    self.name = self.name.blank? ? customer.name : self.name
+    if self.name.blank? && customer
+      self.name = customer.name
+    end
   end
 
+  def to_payload
+    {zipcode: self.zipcode, name: self.name, address: self.address}
+  end
 
 
 end

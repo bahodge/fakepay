@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_18_144336) do
+ActiveRecord::Schema.define(version: 2019_07_18_151941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,27 @@ ActiveRecord::Schema.define(version: 2019_07_18_144336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_shipping_addresses_on_customer_id"
+  end
+
+  create_table "subscription_libraries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "term", null: false
+    t.integer "price", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.string "name", null: false
+    t.string "term", null: false
+    t.string "status", null: false
+    t.integer "price", default: 0, null: false
+    t.datetime "purchased_at"
+    t.datetime "terminated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_subscriptions_on_customer_id"
   end
 
 end
