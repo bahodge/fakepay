@@ -39,7 +39,8 @@ class Subscriber < ApplicationRecord
         subscription_price: self.subscription.price,
         subscription_term: self.subscription.term,
         status: self.status,
-        expires_at: self.expires_at
+        expires_at: self.expires_at,
+        purchases: self.purchases.collect(&:to_h)
     }
   end
 

@@ -17,4 +17,13 @@ class Purchase < ApplicationRecord
     return true if VALID_STATUSES.include?(self.status)
     false
   end
+
+  def to_h
+    {
+        id: self.id,
+        status: self.status,
+        purchased_at: self.purchased_at,
+        responses: self.responses.collect(&:to_h)
+    }
+  end
 end

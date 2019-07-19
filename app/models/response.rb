@@ -4,6 +4,13 @@ class Response < ApplicationRecord
 
   before_save :set_error_message
 
+  def to_h
+    {
+        id: self.id,
+        response_data: self.response_data
+    }
+  end
+
   def self.from_http_response(response)
     Response.new(response_data: response.parsed_response)
   end

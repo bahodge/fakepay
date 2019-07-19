@@ -13,11 +13,19 @@ class Subscription < ApplicationRecord
     end
   end
 
+  def to_h
+    {
+        id: self.id,
+        name: self.name,
+        term: self.term,
+        price: self.price
+    }
+  end
+
 
   def set_defaults
     self.name ||= ""
     self.term ||= "MONTH"
-    self.status ||= "INACTIVE"
     self.price ||= 0
   end
 

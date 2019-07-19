@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
 
   skip_before_action :verify_authenticity_token # skipping token verification
 
-  def create
+  def subscribe
     customer_id = params[:customer_id]
     customer = Customer.find_by_id(customer_id)
     return render json: {error: "Cannot find customer with id #{customer_id}"} unless customer
@@ -15,13 +15,18 @@ class SubscriptionsController < ApplicationController
     render json: purchase_response
   end
 
-  def list
-    customer_id = params[:customer_id]
-    customer = Customer.find_by_id(customer_id)
-    return render json: {error: "Cannot find customer with id #{customer_id}"} unless customer
+  def create
+    subscription = Subscription.create!(name: params[:name],
+                                        term: params[:term],
+                                        price: params[:price])
 
-    render json: customer.subscribers.collect(&:to_h)
+    render json: subscription.to_h
   end
+
+  def list
+    render json: Subscription.all.collect(&:to_h)
+  end
+
 
   def delete
     customer_id = params[:customer_id]

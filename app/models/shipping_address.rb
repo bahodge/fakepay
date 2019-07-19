@@ -17,4 +17,13 @@ class ShippingAddress < ApplicationRecord
     end
   end
 
+  def to_h
+    {
+        id: self.id,
+        name: self.name,
+        address: self.address,
+        zip_code: self.zip_code
+    }
+  end
+
 end

@@ -12,6 +12,15 @@ class Customer < ApplicationRecord
     self.billing_token ||= nil
   end
 
+  def to_h
+    {
+        id: self.id,
+        name: self.name,
+        shipping_addresses: self.shipping_addresses.collect(&:to_h),
+        subscribers: self.subscribers.collect(&:to_h)
+    }
+  end
+
   def subscribe_to_subscription!(params, subscription)
     if self.billing_token.nil?
       billing_info = FakepayApi::Inputs::BillingInformation.from_request(params, self)
