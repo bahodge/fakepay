@@ -1,6 +1,3 @@
 task :cron => :environment do
-  puts Cron::RenewSubscriptions.be_fab
-  # EdiListener.process_new_messages
-
-  puts "done."
+  # THIS IS THE TASK THAT WOULD BE RUN IN ORDER TO RENEW SUBSCRIPTIONS
 end
