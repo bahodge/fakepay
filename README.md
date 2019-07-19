@@ -15,7 +15,11 @@
 - `cd path/to/project`
 - `bundle install`
 - `rails db:setup`
+- if needed `rails db:migrate`
 - `rails server`
+
+- I have also added a seed file with some data
+- `rails db:seed`
 
 ### How the app works
 
@@ -48,6 +52,11 @@
   - `customer_id`=> integer
   - `subscription_id`=> integer
   - `amount`=> integer
+  - `card_number`=> integer
+  - `cvv`=> string
+  - `expiration_month`=> string
+  - `expiration_year`=> string
+  - `zip_code`=> string
 - create POST
   - `name` => string
   - `term` => string

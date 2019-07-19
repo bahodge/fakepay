@@ -20,10 +20,10 @@ class ShippingAddressesController < ApplicationController
     shipping_address_id = params[:shipping_address_id]
     shipping_address = ShippingAddress.find_by_id(shipping_address_id)
     unless shipping_address
-      render json: {error: "Cannot find Shipping Address with id #{shipping_address_id}"}
+      return render json: {error: "Cannot find Shipping Address with id #{shipping_address_id}"}
     end
 
-    shipping_address.destroy!
+    shipping_address&.destroy!
 
     render json: {shipping_address_id: shipping_address_id, status: "DESTROYED"}
   end

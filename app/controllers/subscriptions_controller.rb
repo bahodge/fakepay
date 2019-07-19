@@ -9,8 +9,7 @@ class SubscriptionsController < ApplicationController
 
     subscription_id = params[:subscription_id]
     subscription = Subscription.find_by_id(subscription_id)
-    return "No Subscription Id" unless subscription
-    return render json: {error: "No Subscription Id"} unless subscription
+    return render json: {error: "No Subscription Id with id #{subscription_id}"} unless subscription
 
     purchase_response = customer.subscribe_to_subscription!(params, subscription)
 
