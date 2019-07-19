@@ -8,6 +8,10 @@
 
 ### Getting Started
 
+- using `rails v5.2.3`
+- using `postgres v11.4`
+- using `ruby v2.6.2` 
+
 - `cd path/to/project`
 - `bundle install`
 - `rails db:setup`
