@@ -22,6 +22,10 @@ class Subscriber < ApplicationRecord
     end
   end
 
+  def expires_soon?
+    self.expires_at.end_of_day <= 2.days.from_now.end_of_day
+  end
+
   # this should be an async job or subscription
 
   def make_new_purchase!(billing_info)
