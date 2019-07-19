@@ -17,9 +17,4 @@ class ShippingAddress < ApplicationRecord
     end
   end
 
-  def to_payload
-    {zip_code: self.zip_code, name: self.name, address: self.address}
-  end
-
-
 end

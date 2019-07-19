@@ -22,10 +22,10 @@ subscriber_1 = Subscriber.create(customer: customer_2,
 purchase_1 = Purchase.create!(subscriber: subscriber_1,
                               status: "COMPLETE")
 
-response_1 = Response.create!(purchase: purchase_1,
-                              response_data: {"token" => "303c297da2938c786938d05e928d2e",
-                                              "success" => true,
-                                              "error_code" => nil})
+# response_1 = Response.create!(purchase: purchase_1,
+#                               response_data: {"token" => "303c297da2938c786938d05e928d2e",
+#                                               "success" => true,
+#                                               "error_code" => nil})
 
 
 

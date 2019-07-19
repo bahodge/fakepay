@@ -10,7 +10,7 @@ class Purchase < ApplicationRecord
 
   def set_defaults
     self.status ||= "PENDING"
-    self.purchased_at ||= DateTime.new
+    self.purchased_at ||= Time.zone.now
   end
 
   def valid_status

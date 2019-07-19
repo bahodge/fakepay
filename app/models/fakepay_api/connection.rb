@@ -29,8 +29,10 @@ class FakepayApi::Connection
 
   def make_request!(body:)
     request = build_request(body: body)
-    self.response = request.make_request!
-    response
+    Customer.transaction do
+      self.response = request.make_request!
+    end
+    self.response
   end
 
 end

@@ -4,6 +4,7 @@ class CreateSubscribers < ActiveRecord::Migration[5.2]
       t.references :subscription
       t.references :customer
       t.string :status, null: false
+      t.datetime :expires_at
 
       t.timestamps
     end
