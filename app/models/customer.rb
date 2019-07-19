@@ -25,6 +25,28 @@ class Customer < ApplicationRecord
     build_purchase_json_response(purchase, subscription)
   end
 
+  def unsubscribe_from_subscription!(subscription)
+    subscriber = find_subscriber_for_subscription(subscription)
+    if subscriber
+      subscriber.status = "TERMINATED"
+      subscriber.save!
+      {
+          status: subscriber.status,
+          expires_at: subscriber.expires_at,
+          subscription_name: subscription.name,
+          error: nil
+      }
+    else
+      {
+          status: nil,
+          expires_at: nil,
+          subscription_name: subscription.name,
+          error: "Could not find customer subscriber"
+      }
+    end
+
+  end
+
   private
 
   def build_purchase_json_response(purchase, subscription)
@@ -46,10 +68,14 @@ class Customer < ApplicationRecord
     }
   end
 
-  def find_or_create_subscriber_from_subscription!(subscription)
-    subscriber = self.subscribers.find do |subscriber|
+  def find_subscriber_for_subscription(subscription)
+    self.subscribers.find do |subscriber|
       subscriber.subscription.id == subscription.id
     end
+  end
+
+  def find_or_create_subscriber_from_subscription!(subscription)
+    subscriber = find_subscriber_for_subscription(subscription)
     unless subscriber
       subscriber = Subscriber.create!(customer: self,
                                       subscription: subscription)

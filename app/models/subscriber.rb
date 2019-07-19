@@ -33,6 +33,16 @@ class Subscriber < ApplicationRecord
     purchase
   end
 
+  def to_h
+    {
+        subscription_name: self.subscription.name,
+        subscription_price: self.subscription.price,
+        subscription_term: self.subscription.term,
+        status: self.status,
+        expires_at: self.expires_at
+    }
+  end
+
   private
 
   def update_subscription!(response)
