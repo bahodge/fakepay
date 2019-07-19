@@ -25,11 +25,12 @@ class Subscriber < ApplicationRecord
   # this should be an async job or subscription
 
   def make_new_purchase!(billing_info)
+    # raise ScriptError, "SHOULDNT HIT HERE!"
     purchase = Purchase.create!(subscriber: self)
     response = handle_request!(billing_info, purchase)
     response.update_purchase!
     update_customer_from_response!(response) if response.success?
-    update_subscription!(response)
+    update_subscriber!(response)
     purchase
   end
 
@@ -46,7 +47,16 @@ class Subscriber < ApplicationRecord
 
   private
 
-  def update_subscription!(response)
+  def handle_request!(billing_info, purchase)
+    connection = FakepayApi::Connection.from_customer(self.customer)
+    http_response = connection.make_request!(body: billing_info.to_h)
+    response = Response.from_http_response(http_response)
+    response.purchase = purchase
+    response.save!
+    response
+  end
+
+  def update_subscriber!(response)
     if response.success?
       self.status = "ACTIVE"
       update_expires_at
@@ -66,14 +76,7 @@ class Subscriber < ApplicationRecord
     self.expires_at += time
   end
 
-  def handle_request!(billing_info, purchase)
-    connection = FakepayApi::Connection.from_customer(self.customer)
-    http_response = connection.make_request!(body: billing_info.to_h)
-    response = Response.from_http_response(http_response)
-    response.purchase = purchase
-    response.save!
-    response
-  end
+
 
   def update_customer_from_response!(response)
     self.customer.billing_token = response.token

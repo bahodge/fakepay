@@ -2,7 +2,6 @@ class FakepayApi::Request
 
   FAKEPAY_PURCHASE_ENDPOINT = ENV['FAKEPAY_PURCHASE_ENDPOINT']
 
-
   attr_accessor :body, :headers, :message, :endpoint
 
   def initialize(body: {}, headers:, message:)

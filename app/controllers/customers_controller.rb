@@ -7,7 +7,7 @@ class CustomersController < ApplicationController
     customer = Customer.find_by_id(customer_id)
     return render json: {error: "Cannot find customer with id #{customer_id}"} unless customer
 
-    render json: customer.subscribers.collect(&:to_h)
+    render json: customer.subscriptions.collect(&:to_h)
   end
 
   def shipping_addresses

@@ -30,6 +30,20 @@ class Response < ApplicationRecord
     success.to_s == true.to_s
   end
 
+  def success
+    response_data["success"]
+  end
+
+  def error_code
+    response_data["error_code"]
+  end
+
+  def token
+    response_data["token"]
+  end
+
+  private
+
   def set_error_message
     return unless has_error?
     case error_code
@@ -54,17 +68,7 @@ class Response < ApplicationRecord
     end
   end
 
-  def success
-    response_data["success"]
-  end
 
-  def error_code
-    response_data["error_code"]
-  end
-
-  def token
-    response_data["token"]
-  end
 
 
 

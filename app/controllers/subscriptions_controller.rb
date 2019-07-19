@@ -12,13 +12,13 @@ class SubscriptionsController < ApplicationController
     return "No Subscription Id" unless subscription
     return render json: {error: "No Subscription Id"} unless subscription
 
+    purchase_response = customer.subscribe_to_subscription!(params, subscription)
+
     render json: purchase_response
   end
 
   def create
-    subscription = Subscription.create!(name: params[:name],
-                                        term: params[:term],
-                                        price: params[:price])
+    subscription = Subscription.create!(name: params[:name], term: params[:term], price: params[:price])
 
     render json: subscription.to_h
   end

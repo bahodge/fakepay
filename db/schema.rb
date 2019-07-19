@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 2019_07_18_205128) do
   create_table "subscriptions", force: :cascade do |t|
     t.string "name", null: false
     t.string "term", null: false
-    t.string "status", null: false
     t.integer "price", default: 0, null: false
     t.datetime "purchased_at"
     t.datetime "expires_at"

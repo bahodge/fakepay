@@ -18,7 +18,7 @@ class ShippingAddressesController < ApplicationController
 
   def delete
     shipping_address_id = params[:shipping_address_id]
-    shipping_address = Customer.find_by_id(shipping_address_id)
+    shipping_address = ShippingAddress.find_by_id(shipping_address_id)
     unless shipping_address
       render json: {error: "Cannot find Shipping Address with id #{shipping_address_id}"}
     end

@@ -21,14 +21,17 @@ class Customer < ApplicationRecord
     }
   end
 
-  def subscribe_to_subscription!(params, subscription)
+  def build_billing_information(params)
     if self.billing_token.nil?
-      billing_info = FakepayApi::Inputs::BillingInformation.from_request(params, self)
+      FakepayApi::Inputs::BillingInformation.from_request(params, self)
     else
       amount = params[:amount]
-      billing_info = FakepayApi::Inputs::BillingInformation.from_customer(amount, self)
+      FakepayApi::Inputs::BillingInformation.from_customer(amount, self)
     end
+  end
 
+  def subscribe_to_subscription!(params, subscription)
+    billing_info = build_billing_information(params)
     subscriber = find_or_create_subscriber_from_subscription!(subscription)
     purchase = subscriber.make_new_purchase!(billing_info)
     build_purchase_json_response(purchase, subscription)
@@ -53,7 +56,6 @@ class Customer < ApplicationRecord
           error: "Could not find customer subscriber"
       }
     end
-
   end
 
   private
@@ -91,6 +93,4 @@ class Customer < ApplicationRecord
     end
     subscriber
   end
-
-
 end

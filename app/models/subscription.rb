@@ -6,6 +6,11 @@ class Subscription < ApplicationRecord
   after_initialize :set_defaults, unless: :persisted?
 
   validate :valid_term
+  def set_defaults
+    self.name ||= ""
+    self.term ||= "MONTH"
+    self.price ||= 0
+  end
 
   def valid_term
     unless VALID_TERMS.include?(self.term)
@@ -22,11 +27,5 @@ class Subscription < ApplicationRecord
     }
   end
 
-
-  def set_defaults
-    self.name ||= ""
-    self.term ||= "MONTH"
-    self.price ||= 0
-  end
 
 end

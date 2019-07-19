@@ -3,7 +3,6 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
     create_table :subscriptions do |t|
       t.string :name, null: false
       t.string :term, null: false
-      t.string :status, null: false
       t.integer :price, default: 0, null:false
       t.datetime :purchased_at
       t.datetime :expires_at
